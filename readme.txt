@@ -91,7 +91,7 @@ Double check if your Facebook page is published and available to all users.
 
 = Where do I find settings page in Admin? =
 
-Simply go to Appearance -> Facebook Like Box Sidebox
+Simply go to Appearance -> Facebook Like Box Sidebox.
 
 = Can I use my custom Facebook button image? =
 
