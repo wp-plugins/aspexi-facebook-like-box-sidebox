@@ -43,7 +43,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
             add_action( 'wp_footer',            array( &$this, 'get_html' ), 21 );
             add_action( 'admin_enqueue_scripts',array( &$this, 'admin_scripts') );
             add_action( 'wp_enqueue_scripts',   array( &$this, 'init_scripts') );
-            
+
             register_uninstall_hook( __FILE__, array( 'AspexiFBsidebox', 'uninstall' ) );
         }
 
@@ -159,8 +159,8 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                     if( @$_REQUEST['preview'] )
                         $preview = true;
                     else
-                        $preview = false;  
-                }   
+                        $preview = false;
+                }
             }
 
             // Locale
@@ -306,7 +306,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                                     <option value="enabled"<?php if( 'enabled' == $this->cf['status'] ) echo ' selected="selected"'; ?>><?php _e('enabled', 'aspexifbsidebox'); ?></option>
                                                     <option value="disabled"<?php if( 'disabled' == $this->cf['status'] ) echo ' selected="selected"'; ?>><?php _e('disabled', 'aspexifbsidebox'); ?></option>
                                                     </select></td>
-                                            </tr>                                        
+                                            </tr>
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Facebook Page URL', 'aspexifbsidebox'); ?></th>
                                                 <td>http://www.facebook.com/&nbsp;<input type="text" name="afbsb_url" value="<?php echo $this->cf['url']; ?>" />
@@ -344,10 +344,8 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                                 <th scope="row"><?php _e('Localization', 'aspexifbsidebox'); ?><br /><span style="font-size: 10px"><?php _e('Change might not be visible immediately due to Facebook / browser cache', 'aspexifbsidebox'); ?></span></th>
                                                 <td><?php echo $locales_input; ?></td>
                                             </tr>
-                                                                                       
                                         </tbody>
                                     </table>
-                                                                           
                                     </div>
                                 </div>
 
@@ -389,7 +387,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('High Resolution', 'aspexifbsidebox'); ?><br /><span style="font-size: 10px"><?php _e('Use SVG high quality images instead of PNG if possible. Recommended for Retina displays (iPhone, iPad, MacBook Pro).', 'aspexifbsidebox'); ?></span></th>
                                                 <td><input type="checkbox" value="on" name="afbsb_bthq" disabled readonly />&nbsp;<img src="<?php echo ASPEXIFBSIDEBOX_URL.'images/svgonoff.png'; ?>" alt="" style="cursor:pointer;" /><?php echo $this->get_pro_link(); ?></td>
-                                            </tr>                              
+                                            </tr>
                                         </tbody>
                                     </table>
                                     </div>
@@ -411,7 +409,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                                     <input type="radio" name="afbsb_vertical" value="fixed2" disabled readonly />&nbsp;<?php _e('fixed','aspexifbsidebox'); ?>
                                                     <input type="text" name="afbsb_vertical_val2" value="" size="3" disabled readonly />&nbsp;px <?php _e('from page bottom','aspexifbsidebox'); ?><?php echo $this->get_pro_link(); ?>
                                                 </td>
-                                            </tr>    
+                                            </tr>
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Color Scheme', 'aspexifbsidebox'); ?></th>
                                                 <td><select name="afbsb_colorscheme" disabled readonly>
@@ -422,11 +420,11 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Border Color', 'aspexifbsidebox'); ?></th>
                                                 <td><input type="text" name="afbsb_bordercolor" class="bordercolor-field" value="#3B5998" size="6" disabled readonly /><?php echo $this->get_pro_link(); ?></td>
-                                            </tr>    
+                                            </tr>
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Border Width', 'aspexifbsidebox'); ?></th>
                                                 <td><input type="text" name="afbsb_borderwidth" value="2" size="3" disabled readonly />&nbsp;px<?php echo $this->get_pro_link(); ?></td>
-                                            </tr>   
+                                            </tr>
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Background Color', 'aspexifbsidebox'); ?></th>
                                                 <td><input type="text" name="afbsb_bgcolor" class="bgcolor-field" value="#FFFFFF" size="6" disabled readonly /><?php echo $this->get_pro_link(); ?></td>
@@ -437,7 +435,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                                     <option value="hover" selected="selected"><?php _e('hover', 'aspexifbsidebox'); ?></option>
                                                     <option value="click"><?php _e('click', 'aspexifbsidebox'); ?></option>
                                                     </select><?php echo $this->get_pro_link(); ?></td>
-                                            </tr>   
+                                            </tr>
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Slide Time', 'aspexifbsidebox'); ?></th>
                                                 <td><input type="text" name="afbsb_slidetime" value="400" size="3" disabled readonly />&nbsp;<?php _e('milliseconds', 'aspexifbsidebox'); ?><?php echo $this->get_pro_link(); ?></td>
@@ -447,11 +445,11 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                                 <td><?php _e('Parameter', 'aspexifbsidebox'); ?>:&nbsp;<input type="text" name="afbsb_disableparam" value="" size="6" disabled readonly /><br />
                                                     <?php _e('Value', 'aspexifbsidebox'); ?>:&nbsp;<input type="text" name="afbsb_disableval" value="" size="6" disabled readonly /><?php echo $this->get_pro_link(); ?>
                                                 </td>
-                                            </tr>  
+                                            </tr>
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Disable on Small Screens', 'aspexifbsidebox'); ?><br /><span style="font-size: 10px"><?php _e('Dynamically hide the plugin if screen size is smaller than like box size (CSS media query)', 'aspexifbsidebox'); ?></span></th>
                                                 <td><input type="checkbox" value="on" name="afbsb_smallscreens" checked disabled readonly /><?php echo $this->get_pro_link(); ?></td>
-                                            </tr>                       
+                                            </tr>
                                         </tbody>
                                     </table>
                                     </div>
@@ -480,7 +478,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Other Mobile Devices', 'aspexifbsidebox'); ?></th>
                                                 <td><input type="checkbox" value="on" name="afbsb_edothers" checked disabled readonly /><?php echo $this->get_pro_link(); ?></td>
-                                            </tr>                         
+                                            </tr>
                                         </tbody>
                                     </table>
                                     </div>
@@ -490,14 +488,14 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                 <input class="button-secondary" type="submit" name="preview" value="<?php _e('Save and preview', 'aspexifbsidebox'); ?>" id="previewbutton" /></p>
                             </form>
                             <div class="postbox">
-                                <h3><span>Made by</span></h3>   
+                                <h3><span>Made by</span></h3>
                                 <div class="inside">
                                     <div style="width: 170px; margin: 0 auto;">
                                         <a href="<?php echo $this->get_pro_url(); ?>" target="_blank"><img src="<?php echo ASPEXIFBSIDEBOX_URL.'images/aspexi300.png'; ?>" alt="" border="0" width="150" /></a>
                                     </div>
                                 </div>
-                            </div>   
-                        </div>                                             
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -552,7 +550,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
 
             $css_placement[2] = '50%;margin-top:-'.floor($height/2).'px';
 
-			$smallscreenscss = '';
+	    $smallscreenscss = '';
             if( $width > 0 ) {
                 $widthmax = (int)($width + 2 * $borderwidth + 48 + 30);
                 $smallscreenscss = '@media (max-width: '.$widthmax.'px) { #aspexifbsidebox { display: none; } }';
@@ -580,7 +578,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
             }
 
             $button_uri  = apply_filters( 'aspexifbsidebox_button_uri', $button_uri );
-            
+
             $output = '';
 
             $output .= '<style type="text/css">'.$smallscreenscss.'
