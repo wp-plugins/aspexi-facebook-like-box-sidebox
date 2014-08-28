@@ -24,7 +24,7 @@ Plugin adds fancy Facebook Like Box Sidebox.
 
 ####Premium version####
 
-* [Get Premium version](http://aspexi.com/downloads/aspexi-facebook-like-box-sidebox-hd/?src=plugin_page)
+* [Get Premium version and DEMO](http://aspexi.com/downloads/aspexi-facebook-like-box-sidebox-hd/?src=plugin_page)
 * Like Box for any Facebook page
 * Choose Facebook language
 * **iPhone / iPad** compatible
@@ -52,7 +52,7 @@ Plugin adds fancy Facebook Like Box Sidebox.
 * Disable on small screens
 * **1-Year upgrades &amp; support**
 * 30-Day Money-Back Guarantee
-* **[Get Premium version](http://aspexi.com/downloads/aspexi-facebook-like-box-sidebox-hd/?src=plugin_page)**
+* **[Get Premium version and DEMO](http://aspexi.com/downloads/aspexi-facebook-like-box-sidebox-hd/?src=plugin_page)**
 
 ####Requirements####
 
