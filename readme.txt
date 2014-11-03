@@ -6,7 +6,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dryja
 Tags: facebook, likebox, like box, floating, button, slider, facebook likebox, facebook like box, facebook slider, facebook buttons, sidebox, facebook sidebox, like box sidebox, likebox sidebox, side box, like box side box
 Requires at least: 3.0
 Tested up to: 4.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,12 +24,14 @@ Plugin adds fancy Facebook Like Box Sidebox.
 
 ####Premium version####
 
-* [Get Premium version and DEMO](http://aspexi.com/downloads/aspexi-facebook-like-box-sidebox-hd/?src=plugin_page)
+* [Get Premium version](http://aspexi.com/downloads/aspexi-facebook-like-box-sidebox-hd/?src=plugin_page)
 * Like Box for any Facebook page
 * Choose Facebook language
 * **iPhone / iPad** compatible
 * **High resolution** buttons (SVG files included)
 * 8 amazing original icons / buttons
+* **Polylang compatible**
+* **mqTranslate compatible**
 * **qTranslate compatible**
 * On / off for mobile
 * http or https option
@@ -50,9 +52,10 @@ Plugin adds fancy Facebook Like Box Sidebox.
 * Slide on mouse hover / click
 * Set slide time
 * Disable on small screens
+* Load widget on page load / on slideout
 * **1-Year upgrades &amp; support**
 * 30-Day Money-Back Guarantee
-* **[Get Premium version and DEMO](http://aspexi.com/downloads/aspexi-facebook-like-box-sidebox-hd/?src=plugin_page)**
+* **[Get Premium version](http://aspexi.com/downloads/aspexi-facebook-like-box-sidebox-hd/?src=plugin_page)**
 
 ####Requirements####
 
@@ -91,7 +94,7 @@ Double check if your Facebook page is published and available to all users.
 
 = Where do I find settings page in Admin? =
 
-Simply go to Appearance -> Facebook Like Box Sidebox.
+Simply go to Appearance -> Facebook Like Box Sidebox
 
 = Can I use my custom Facebook button image? =
 
@@ -109,10 +112,16 @@ Yes. Simply create your file and copy it to your current theme (or child) direct
 
 == Changelog ==
 
+= 1.0.1 =
+* Multisite fix
+
 = 1.0.0 =
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+No action required.
 
 = 1.0.0 =
 Initial release, no upgrade available.

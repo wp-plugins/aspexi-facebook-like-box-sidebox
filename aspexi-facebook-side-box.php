@@ -4,7 +4,7 @@ Plugin Name: Aspexi Facebook Like Box Sidebox
 Plugin URI:  http://aspexi.com/downloads/aspexi-facebook-like-box-sidebox-hd/?src=free_plugin
 Description: Plugin adds fancy Facebook Like Box Sidebox.
 Author: Aspexi
-Version: 1.0.0
+Version: 1.0.1
 Author URI: http://aspexi.com/
 License: GPLv2 or later
 
@@ -24,7 +24,7 @@ defined('ABSPATH') or exit();
 
 if ( !class_exists( 'AspexiFBsidebox' ) ) {
 
-    define('ASPEXIFBSIDEBOX_VERSION', '1.0.0');
+    define('ASPEXIFBSIDEBOX_VERSION', '1.0.1');
     define('ASPEXIFBSIDEBOX_URL', plugins_url() . '/aspexi-facebook-side-box/');
 
     class AspexiFBsidebox {
@@ -43,7 +43,8 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
             add_action( 'wp_footer',            array( &$this, 'get_html' ), 21 );
             add_action( 'admin_enqueue_scripts',array( &$this, 'admin_scripts') );
             add_action( 'wp_enqueue_scripts',   array( &$this, 'init_scripts') );
-
+            add_filter( 'plugin_action_links',  array( &$this, 'settings_link' ), 10, 2);
+            
             register_uninstall_hook( __FILE__, array( 'AspexiFBsidebox', 'uninstall' ) );
         }
 
@@ -52,6 +53,9 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
 
             /* Internationalization */
             load_plugin_textdomain( 'aspexifbsidebox', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
+            /* Exras */
+            $this->extras_init();
         }
 
         public function settings() {
@@ -86,9 +90,20 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                    default:
                         $this->cf = array_merge( $cf_default, (array)$this->cf );
                         $this->cf['aspexifbsidebox_version'] = ASPEXIFBSIDEBOX_VERSION;
-                        update_option( 'aspexifbsidebox_options',  $this->cf, '', 'yes' );
+                        if ( is_multisite() )
+                            update_site_option( 'aspexifbsidebox_options',  $this->cf, '', 'yes' );
+                        else
+                            update_option( 'aspexifbsidebox_options',  $this->cf, '', 'yes' );
                }
             }
+        }
+
+        public function settings_link( $action_links, $plugin_file ){
+            if( $plugin_file == plugin_basename(__FILE__) ) {
+                $settings_link = '<a href="themes.php?page=' . dirname( plugin_basename( __FILE__ ) ).'.php">' . __("Settings") . '</a>';
+                array_unshift( $action_links, $settings_link );
+            }
+            return $action_links;
         }
 
         private function add_message( $message ) {
@@ -152,15 +167,19 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                     $aspexifbsidebox_request_options['status']  = isset( $_REQUEST['afbsb_status'] ) ? $_REQUEST['afbsb_status'] : '';
                     $this->cf = array_merge( (array)$this->cf, $aspexifbsidebox_request_options );
 
-                    update_option( 'aspexifbsidebox_options',  $this->cf, '', 'yes' );
+                    if ( is_multisite() ) 
+                        update_site_option( 'aspexifbsidebox_options',  $this->cf, '', 'yes' );
+                    else
+                        update_option( 'aspexifbsidebox_options',  $this->cf, '', 'yes' );
+
                     $this->add_message( __( 'Settings saved.', 'aspexifbsidebox' ) );
 
                     // Preview maybe
                     if( @$_REQUEST['preview'] )
                         $preview = true;
                     else
-                        $preview = false;
-                }
+                        $preview = false;  
+                }   
             }
 
             // Locale
@@ -306,7 +325,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                                     <option value="enabled"<?php if( 'enabled' == $this->cf['status'] ) echo ' selected="selected"'; ?>><?php _e('enabled', 'aspexifbsidebox'); ?></option>
                                                     <option value="disabled"<?php if( 'disabled' == $this->cf['status'] ) echo ' selected="selected"'; ?>><?php _e('disabled', 'aspexifbsidebox'); ?></option>
                                                     </select></td>
-                                            </tr>
+                                            </tr>                                        
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Facebook Page URL', 'aspexifbsidebox'); ?></th>
                                                 <td>http://www.facebook.com/&nbsp;<input type="text" name="afbsb_url" value="<?php echo $this->cf['url']; ?>" />
@@ -344,8 +363,12 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                                 <th scope="row"><?php _e('Localization', 'aspexifbsidebox'); ?><br /><span style="font-size: 10px"><?php _e('Change might not be visible immediately due to Facebook / browser cache', 'aspexifbsidebox'); ?></span></th>
                                                 <td><?php echo $locales_input; ?></td>
                                             </tr>
+                                            <?php
+                                            echo apply_filters('aspexifbsidebox_admin_settings', '');
+                                            ?>                                           
                                         </tbody>
                                     </table>
+                                                                           
                                     </div>
                                 </div>
 
@@ -387,7 +410,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('High Resolution', 'aspexifbsidebox'); ?><br /><span style="font-size: 10px"><?php _e('Use SVG high quality images instead of PNG if possible. Recommended for Retina displays (iPhone, iPad, MacBook Pro).', 'aspexifbsidebox'); ?></span></th>
                                                 <td><input type="checkbox" value="on" name="afbsb_bthq" disabled readonly />&nbsp;<img src="<?php echo ASPEXIFBSIDEBOX_URL.'images/svgonoff.png'; ?>" alt="" style="cursor:pointer;" /><?php echo $this->get_pro_link(); ?></td>
-                                            </tr>
+                                            </tr>                              
                                         </tbody>
                                     </table>
                                     </div>
@@ -409,7 +432,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                                     <input type="radio" name="afbsb_vertical" value="fixed2" disabled readonly />&nbsp;<?php _e('fixed','aspexifbsidebox'); ?>
                                                     <input type="text" name="afbsb_vertical_val2" value="" size="3" disabled readonly />&nbsp;px <?php _e('from page bottom','aspexifbsidebox'); ?><?php echo $this->get_pro_link(); ?>
                                                 </td>
-                                            </tr>
+                                            </tr>    
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Color Scheme', 'aspexifbsidebox'); ?></th>
                                                 <td><select name="afbsb_colorscheme" disabled readonly>
@@ -420,11 +443,11 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Border Color', 'aspexifbsidebox'); ?></th>
                                                 <td><input type="text" name="afbsb_bordercolor" class="bordercolor-field" value="#3B5998" size="6" disabled readonly /><?php echo $this->get_pro_link(); ?></td>
-                                            </tr>
+                                            </tr>    
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Border Width', 'aspexifbsidebox'); ?></th>
                                                 <td><input type="text" name="afbsb_borderwidth" value="2" size="3" disabled readonly />&nbsp;px<?php echo $this->get_pro_link(); ?></td>
-                                            </tr>
+                                            </tr>   
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Background Color', 'aspexifbsidebox'); ?></th>
                                                 <td><input type="text" name="afbsb_bgcolor" class="bgcolor-field" value="#FFFFFF" size="6" disabled readonly /><?php echo $this->get_pro_link(); ?></td>
@@ -435,21 +458,25 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                                     <option value="hover" selected="selected"><?php _e('hover', 'aspexifbsidebox'); ?></option>
                                                     <option value="click"><?php _e('click', 'aspexifbsidebox'); ?></option>
                                                     </select><?php echo $this->get_pro_link(); ?></td>
-                                            </tr>
+                                            </tr>   
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Slide Time', 'aspexifbsidebox'); ?></th>
                                                 <td><input type="text" name="afbsb_slidetime" value="400" size="3" disabled readonly />&nbsp;<?php _e('milliseconds', 'aspexifbsidebox'); ?><?php echo $this->get_pro_link(); ?></td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <th scope="row"><?php _e('Delay FB content load', 'aspexifbsidebox'); ?><br /><span style="font-size: 10px"><?php _e('Checking this box will prevent from loading the facebook content while loading the whole page. With this box checked the page will load faster, but facebook content may appear a bit later while opening the box for the first time.', 'aspexifbsidebox'); ?></span></th>
+                                                <td><input type="checkbox" value="on" name="afbsb_async" disabled readonly /><?php echo $this->get_pro_link(); ?></td>
                                             </tr>
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Disable on GET', 'aspexifbsidebox'); ?><br /><span style="font-size: 10px"><?php _e('Example: set Parameter=iframe and Value=true. Like Box will be disabled on all URLs like yourwebsite.com/?iframe=true.', 'aspexifbsidebox'); ?></span></th>
                                                 <td><?php _e('Parameter', 'aspexifbsidebox'); ?>:&nbsp;<input type="text" name="afbsb_disableparam" value="" size="6" disabled readonly /><br />
                                                     <?php _e('Value', 'aspexifbsidebox'); ?>:&nbsp;<input type="text" name="afbsb_disableval" value="" size="6" disabled readonly /><?php echo $this->get_pro_link(); ?>
                                                 </td>
-                                            </tr>
+                                            </tr>  
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Disable on Small Screens', 'aspexifbsidebox'); ?><br /><span style="font-size: 10px"><?php _e('Dynamically hide the plugin if screen size is smaller than like box size (CSS media query)', 'aspexifbsidebox'); ?></span></th>
                                                 <td><input type="checkbox" value="on" name="afbsb_smallscreens" checked disabled readonly /><?php echo $this->get_pro_link(); ?></td>
-                                            </tr>
+                                            </tr>                       
                                         </tbody>
                                     </table>
                                     </div>
@@ -478,7 +505,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                             <tr valign="top">
                                                 <th scope="row"><?php _e('Other Mobile Devices', 'aspexifbsidebox'); ?></th>
                                                 <td><input type="checkbox" value="on" name="afbsb_edothers" checked disabled readonly /><?php echo $this->get_pro_link(); ?></td>
-                                            </tr>
+                                            </tr>                         
                                         </tbody>
                                     </table>
                                     </div>
@@ -488,14 +515,14 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                                 <input class="button-secondary" type="submit" name="preview" value="<?php _e('Save and preview', 'aspexifbsidebox'); ?>" id="previewbutton" /></p>
                             </form>
                             <div class="postbox">
-                                <h3><span>Made by</span></h3>
+                                <h3><span>Made by</span></h3>   
                                 <div class="inside">
                                     <div style="width: 170px; margin: 0 auto;">
                                         <a href="<?php echo $this->get_pro_url(); ?>" target="_blank"><img src="<?php echo ASPEXIFBSIDEBOX_URL.'images/aspexi300.png'; ?>" alt="" border="0" width="150" /></a>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>   
+                        </div>                                             
                     </div>
                 </div>
             </div>
@@ -550,7 +577,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
 
             $css_placement[2] = '50%;margin-top:-'.floor($height/2).'px';
 
-	    $smallscreenscss = '';
+			$smallscreenscss = '';
             if( $width > 0 ) {
                 $widthmax = (int)($width + 2 * $borderwidth + 48 + 30);
                 $smallscreenscss = '@media (max-width: '.$widthmax.'px) { #aspexifbsidebox { display: none; } }';
@@ -578,7 +605,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
             }
 
             $button_uri  = apply_filters( 'aspexifbsidebox_button_uri', $button_uri );
-
+            
             $output = '';
 
             $output .= '<style type="text/css">'.$smallscreenscss.'
@@ -688,6 +715,42 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
         public function admin_scripts() {
             // premium only
             return;
+        }
+        
+        public function extras_init() {
+            /* qTranslate */
+            add_filter( 'aspexifbsidebox_admin_settings', array( &$this, 'extras_qtranslate_admin' ) );
+            add_filter( 'aspexifbsidebox_admin_settings', array( &$this, 'extras_polylang_admin' ) );
+        }
+        
+        public function extras_qtranslate_detect() {
+            global $q_config;
+            return (isset($q_config) && !empty($q_config));
+        }
+        
+        public function extras_qtranslate_admin( $extra_admin_content ) {
+            $qtranslate_locale = $this->extras_qtranslate_detect();
+
+            if( $qtranslate_locale ) {
+                $extra_admin_content .= '<tr valign="top">
+    <th scope="row">'.__('qTranslate/mqTranslate', 'aspexifbsidebox').'<br /><span style="font-size: 10px">'.__('Try to detect qTranslate/mqTranslate language and force it instead of language set in Localization.', 'aspexifbsidebox').'</span></th>
+    <td><input type="checkbox" value="on" name="afbsb_qtranslate" disabled readonly />'.$this->get_pro_link().'</td>
+</tr>';
+            }
+
+            return $extra_admin_content;
+        }
+        
+        public function extras_polylang_admin( $extra_admin_content ) {
+            
+            if(function_exists('pll_current_language')) {
+                $extra_admin_content .= '<tr valign="top">
+    <th scope="row">'.__('Polylang', 'aspexifbsidebox').'<br /><span style="font-size: 10px">'.__('Try to detect Polylang language and force it instead of language set in Localization.', 'aspexifbsidebox').'</span></th>
+    <td><input type="checkbox" value="on" name="afbsb_polylang" disabled readonly />'.$this->get_pro_link().'</td>
+</tr>';
+            }
+
+            return $extra_admin_content;
         }
     }
 
