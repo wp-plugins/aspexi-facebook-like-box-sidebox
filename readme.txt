@@ -6,7 +6,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dryja
 Tags: facebook, likebox, like box, floating, button, slider, facebook likebox, facebook like box, facebook slider, facebook buttons, sidebox, facebook sidebox, like box sidebox, likebox sidebox, side box, like box side box
 Requires at least: 3.0
 Tested up to: 4.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,6 +112,9 @@ Yes. Simply create your file and copy it to your current theme (or child) direct
 
 == Changelog ==
 
+= 1.0.2 =
+* Plugin name & settings link fix
+
 = 1.0.1 =
 * Multisite fix
 
@@ -119,6 +122,9 @@ Yes. Simply create your file and copy it to your current theme (or child) direct
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+No action required.
 
 = 1.0.1 =
 No action required.

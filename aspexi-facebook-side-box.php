@@ -4,7 +4,7 @@ Plugin Name: Aspexi Facebook Like Box Sidebox
 Plugin URI:  http://aspexi.com/downloads/aspexi-facebook-like-box-sidebox-hd/?src=free_plugin
 Description: Plugin adds fancy Facebook Like Box Sidebox.
 Author: Aspexi
-Version: 1.0.1
+Version: 1.0.2
 Author URI: http://aspexi.com/
 License: GPLv2 or later
 
@@ -24,8 +24,8 @@ defined('ABSPATH') or exit();
 
 if ( !class_exists( 'AspexiFBsidebox' ) ) {
 
-    define('ASPEXIFBSIDEBOX_VERSION', '1.0.1');
-    define('ASPEXIFBSIDEBOX_URL', plugins_url() . '/aspexi-facebook-side-box/');
+    define('ASPEXIFBSIDEBOX_VERSION', '1.0.2');
+    define('ASPEXIFBSIDEBOX_URL', plugins_url() . '/aspexi-facebook-like-box-sidebox/');
 
     class AspexiFBsidebox {
 
@@ -588,7 +588,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
 
             // Facebook button image (check in THEME CHILD -> THEME PARENT -> PLUGIN DIR)
             // TODO: move this to admin page
-            $users_button_custom    = '/plugins/aspexi-facebook-side-box/images/aspexi-fb-custom.png';
+            $users_button_custom    = '/plugins/aspexi-facebook-like-box-sidebox/images/aspexi-fb-custom.png';
             $users_button_template  = get_template_directory() . $users_button_custom;
             $users_button_child     = get_stylesheet_directory() . $users_button_custom;
             $button_uri             = '';
