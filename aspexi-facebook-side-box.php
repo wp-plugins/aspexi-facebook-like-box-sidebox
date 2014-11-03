@@ -142,7 +142,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
         }
 
         public function admin_menu() {
-            add_submenu_page( 'themes.php', __( 'Aspexi Facebook Like Box Sidebox', 'aspexifbsidebox' ), __( 'Facebook Like Box Sidebox', 'aspexifbsidebox' ), 'manage_options', 'aspexi-facebook-side-box.php', array( &$this, 'admin_page') );
+            add_submenu_page( 'themes.php', __( 'Aspexi Facebook Like Box Sidebox', 'aspexifbsidebox' ), __( 'Facebook Like Box Sidebox', 'aspexifbsidebox' ), 'manage_options', 'aspexi-facebook-like-box-sidebox.php', array( &$this, 'admin_page') );
         }
 
         public function admin_page() {
@@ -310,7 +310,7 @@ if ( !class_exists( 'AspexiFBsidebox' ) ) {
                 <div id="poststuff" class="metabox-holder">
                     <div id="post-body">
                         <div id="post-body-content">
-                            <form method="post" action="themes.php?page=aspexi-facebook-side-box.php">
+                            <form method="post" action="themes.php?page=aspexi-facebook-like-box-sidebox.php">
 
                                 <input type="hidden" name="afbsb_form_submit" value="submit" />
 
